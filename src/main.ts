@@ -57,7 +57,11 @@ function renderToDos(): void {
                     checkbox.type='checkbox'
                     checkbox.checked=toDo.completed
             
-         
+                     checkbox.addEventListener('change', () => {toDo.completed=checkbox.checked  
+
+                    li.style.textDecoration = toDo.completed ? 'line-through' : 'none';
+                                
+                  } )
                 
 
 
@@ -69,6 +73,8 @@ function renderToDos(): void {
                      prioritet: ${toDo.priority}<br>
             `;
              
+
+              li.style.textDecoration = toDo.completed ? 'line-through' : 'none';
                     li.appendChild(checkbox)
 
                     
