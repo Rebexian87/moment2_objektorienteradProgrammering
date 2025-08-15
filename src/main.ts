@@ -1,13 +1,14 @@
 import { ToDo } from "./ToDo";
-import { ToDoManager } from "./ToDoManager";  //importerar ContactManager klassen
+import { ToDoManager } from "./ToDoManager";  //importerar  ToDoManager klassen
 
-const toDoManager = new ToDoManager(); //Skapar en instans av ContactManager
+const toDoManager = new ToDoManager(); //Skapar en instans av ToDoManager
+
 
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('form')! as HTMLFormElement;
     form.addEventListener('submit', (event) => {
         event.preventDefault(); // Förhindrar att formuläret skickas traditionellt
-        addToDo();
+         addToDo();
           renderToDos();
     });
 });
@@ -15,16 +16,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function addToDo(): boolean {
     const taskInput = document.getElementById('task') as HTMLInputElement; //Det här är själva elementen
-    //const completedInput = document.getElementById('completed') as HTMLInputElement;
     const priorityInput = document.getElementById('priority') as HTMLInputElement;
 
     const task = taskInput.value;
-    // const completed = false;
     const priority = priorityInput.value;
 
     if (task && priority == '1'||priority == '2'||priority == '3') {
         const newToDo = new ToDo(task, priority)
-        toDoManager.addToDo(newToDo); //Skickar in newContact till addContact metoden i ContactManager
+        toDoManager.addToDo(newToDo); //Skickar in newToDo till addToDo metoden i ToDoManager
         taskInput.value = ''; //rensar input fälten
         priorityInput.value = '';
 
@@ -52,40 +51,37 @@ function renderToDos(): void {
         toDoList.innerHTML = ''; // Rensar listan
         toDos.forEach((toDo) => {
              if (toDo.priority == "1" ||  toDo.priority == '2' || toDo.priority == '3' ) {
-            const li = document.createElement('li');
-                   const checkbox=document.createElement('input')
-                    checkbox.type='checkbox'
-                    checkbox.checked=toDo.completed
-            
-                     checkbox.addEventListener('change', () => {toDo.completed=checkbox.checked  
-
-                    li.style.textDecoration = toDo.completed ? 'line-through' : 'none';
-                                
-                  } )
-                
-
-
-         
-    
-
-
-                    li.innerHTML = `<strong>${toDo.task}</strong><br>           
-                     prioritet: ${toDo.priority}<br>
+                    const li = document.createElement('li');
+                   const button=document.createElement('button')
+                    button.textContent='Klar'
+                         
+                     button.addEventListener('click', () =>             
+                        {const toDos = toDoManager.getToDo();                                                  
+                         toDo.completed=true 
+                         
+                         li.style.textDecoration = toDo.completed ? 'line-through' : 'none';
+                         localStorage.setItem("toDos", JSON.stringify(toDos))                      
+                        } )               
+                        li.innerHTML = `<strong>${toDo.task}</strong><br>           
+                        prioritet: ${toDo.priority}<br>
             `;
              
 
               li.style.textDecoration = toDo.completed ? 'line-through' : 'none';
-                    li.appendChild(checkbox)
+                    li.appendChild(button)
 
                     
         toDoList.appendChild(li);
               
-         
- //<label><input type='checkbox' >status:${toDo.completed} </label><br>
+
 
    
 
             toDoList.appendChild(li); }
                 })}}
 
+               
+
                 renderToDos()
+
+               

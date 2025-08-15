@@ -1,3 +1,4 @@
+//Interface för att göra 
 export interface IToDo {
     
     task: string;
@@ -6,4 +7,3 @@ export interface IToDo {
 
 }
 
-// Path: src/js/ToDo.ts
