@@ -25,6 +25,12 @@ export class ToDoManager {
         return this.toDos;
     }
 
+       public updateToDo(): void {
+        // this.toDos.push(toDo);
+        LocalStorageUtil.saveToLocalStorage(this.toDos);
+
+    }
+
     
 
 
