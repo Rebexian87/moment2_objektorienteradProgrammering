@@ -3,7 +3,7 @@ export interface IToDo {
     
     task: string;
     completed: boolean;
-    priority: string;
+    priority: number;
 
 }
 

@@ -4,10 +4,10 @@ import { IToDo } from './IToDo';
 export class ToDo implements IToDo {
     task: string;
     completed: boolean;
-    priority: string;
+    priority: number;
 
         //Konstruktor för klassen
-    constructor(task: string,  priority: string,) {
+    constructor(task: string,  priority: number,) {
         this.task = task;
         this.completed = false;
         this.priority = priority;

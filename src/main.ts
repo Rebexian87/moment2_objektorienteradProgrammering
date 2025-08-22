@@ -19,9 +19,9 @@ function addToDo(): boolean {
     const priorityInput = document.getElementById('priority') as HTMLInputElement;
 
     const task = taskInput.value;
-    const priority = priorityInput.value;
+    const priority = Number(priorityInput.value);
 
-    if (task && priority == '1'||priority == '2'||priority == '3') {
+    if (task && priority == 1||priority == 2||priority ==3) {
         const newToDo = new ToDo(task, priority)
         toDoManager.addToDo(newToDo); //Skickar in newToDo till addToDo metoden i ToDoManager
         taskInput.value = ''; //rensar input fälten
@@ -56,7 +56,7 @@ function renderToDos(): void {
          toDoList2.innerHTML = ''; // Rensar listan
           toDoList3.innerHTML = ''; // Rensar listan
         toDos.forEach((toDo) => {
-             if (toDo.priority == "1"  ) { //|  toDo.priority == '2' || toDo.priority == '3'
+             if (toDo.priority == 1  ) { //|  toDo.priority == '2' || toDo.priority == '3'
                     const li = document.createElement('li');
                    const button=document.createElement('button')
                     button.textContent='Klar'
@@ -85,7 +85,7 @@ function renderToDos(): void {
 
             toDoList.appendChild(li); }
 
-                      if (  toDo.priority == '2' ) {
+                      if (  toDo.priority == 2 ) {
                     const li = document.createElement('li');
                    const button=document.createElement('button')
                     button.textContent='Klar'
@@ -114,7 +114,7 @@ function renderToDos(): void {
 
             toDoList2.appendChild(li); }
 
-                            if (  toDo.priority == '3' ) {
+                            if (  toDo.priority == 3 ) {
                     const li = document.createElement('li');
                    const button=document.createElement('button')
                     button.textContent='Klar'
