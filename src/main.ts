@@ -1,37 +1,44 @@
-import { ToDo } from "./ToDo";
-import { ToDoManager } from "./ToDoManager";  //importerar  ToDoManager klassen
+import { ToDo } from "./ToDo"; //importerar ToDo klass
+import { ToDoManager } from "./ToDoManager";  //importerar ToDoManager klass
 
-const toDoManager = new ToDoManager(); //Skapar en instans av ToDoManager
+const toDoManager = new ToDoManager(); //Skapar ett objekt av ToDoManager
 
 
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('form')! as HTMLFormElement;
+document.addEventListener('DOMContentLoaded', () => { //Loadas vid start
+    const form = document.getElementById('form')! as HTMLFormElement; //FormElement från HTML
     form.addEventListener('submit', (event) => {
         event.preventDefault(); // Förhindrar att formuläret skickas traditionellt
-         addToDo();
-        renderToDos();
+         addToDo(); //Anropar funktion addToDo
+        renderToDos(); //Anropar funktion  renderToDos()
     });
 });
 
 
 function addToDo(): boolean {
-    const taskInput = document.getElementById('task') as HTMLInputElement; //Det här är själva elementen
-    const priorityInput = document.getElementById('priority') as HTMLInputElement;
+    const taskInput = document.getElementById('task') as HTMLInputElement; //InputElement från HTML
+    const priorityInput = document.getElementById('priority') as HTMLInputElement;  //InputElement från HTML
+    let errorEl=document.getElementById('error')as HTMLParagraphElement  //ParagrafElement från HTML
+    errorEl.innerText=''
 
-    const task = taskInput.value;
-    const priority = Number(priorityInput.value);
+    //Värden från inputrad
+    const task = taskInput.value; 
+    const priority = Number(priorityInput.value); //Number används så att man kan använda siffror i ifsatsen. 
 
+    //Detta händer om det finns en uppgift och prioriteringen är 1,2 eller 3
     if (task && priority == 1||priority == 2||priority ==3) {
-        const newToDo = new ToDo(task, priority)
+        const newToDo = new ToDo(task, priority) //Skapar new ToDo
         toDoManager.addToDo(newToDo); //Skickar in newToDo till addToDo metoden i ToDoManager
-        taskInput.value = ''; //rensar input fälten
+        //rensar inputfälten
+        taskInput.value = ''; 
         priorityInput.value = '';
 
-        return true
+        return true //returnerar sant
       
 
     } else {
-        return false
+        errorEl.innerText= 'Prioritet måste vara 1, 2 eller 3' //Felmeddelande
+        return false //returnerar falskt
+      
     }
 
 //   renderToDos();
@@ -41,115 +48,111 @@ function addToDo(): boolean {
 
 
 function renderToDos(): void {
-    console.log(toDoManager); // Ska visa ToDoManager-instansen
-    const toDos = toDoManager.getToDo(); //Hämtar arrayen med kontakter från ToDoManager
-    console.log("Det är så här många saker att göra i min lista" + toDos.length);
-    let pEl=document.getElementById("p") as HTMLParagraphElement
-    pEl.textContent=("Det är så här många saker att göra i min lista " + toDos.length)
-    const toDoList = document.getElementById('toDo-list') as HTMLUListElement;//Hämtar listan från html
-    const toDoList2 = document.getElementById('toDo-list2') as HTMLUListElement;//Hämtar listan från html
-    const toDoList3 = document.getElementById('toDo-list3') as HTMLUListElement;//Hämtar listan från html
-    // const checkbox = document.getElementById('checkbox') as HTMLElement; 
+    console.log(toDoManager); // Visar ToDoManager-instansen
+
+    const toDos = toDoManager.getToDo(); //Hämtar arrayen med att göra från ToDoManager
+    
+    let pEl=document.getElementById("p") as HTMLParagraphElement //ParagrafElement
+    pEl.textContent=("Det är så här många saker att göra i min lista " + toDos.length) //Skriver ut antalet uppgifter på skärmen 
+    const toDoList = document.getElementById('toDo-list') as HTMLUListElement;//ListElement från HTML
+    const toDoList2 = document.getElementById('toDo-list2') as HTMLUListElement;//ListElement från HTML
+    const toDoList3 = document.getElementById('toDo-list3') as HTMLUListElement;//ListElement från HTML
+
 
     if (toDoList) {
-        toDoList.innerHTML = ''; // Rensar listan
-         toDoList2.innerHTML = ''; // Rensar listan
-          toDoList3.innerHTML = ''; // Rensar listan
+            // Rensar listan
+            toDoList.innerHTML = ''; 
+            toDoList2.innerHTML = ''; 
+            toDoList3.innerHTML = '';
+
+            //Loopar igenom att göra för att skriva ut på skärmen
         toDos.forEach((toDo) => {
-             if (toDo.priority == 1  ) { //|  toDo.priority == '2' || toDo.priority == '3'
-                    const li = document.createElement('li');
-                   const button=document.createElement('button')
-                    button.textContent='Klar'
+            
+             if (toDo.priority == 1  ) { //Om prioritet är 1 händer nedan. 
+
+                    const li = document.createElement('li');  //skapar element li
+                    const button=document.createElement('button')  //skapar element button
+                    button.textContent='Klar'//text på knapp
+
                          
-                     button.addEventListener('click', () =>             
-                        {const toDos = toDoManager.getToDo();                                                  
-                         toDo.completed=true 
+                     button.addEventListener('click', () =>   //Eventlyssnare som lyssnar vid klick
+
+                        {const toDos = toDoManager.getToDo();  //Hämtar ToDo från Localstorage                                            
+                         toDo.completed=true //Gör om completed från false till true (från inte klar till klar)
                          
-                         li.style.textDecoration = toDo.completed ? 'line-through' : 'none';
-                         localStorage.setItem("toDos", JSON.stringify(toDos))                      
-                        } )               
+                         li.style.textDecoration = toDo.completed ? 'line-through' : 'none'; //Om det är klart så blir uppgiften överstruken
+                         localStorage.setItem("toDos", JSON.stringify(toDos))   //Sparar till localstorage att uppgiften är klar            
+                        } )         
+                        //Skriver ut uppgiften      
                         li.innerHTML = `<strong>${toDo.task}</strong><br>           
-                        prioritet: ${toDo.priority}<br>
-            `;
+                        prioritet: ${toDo.priority}<br>  `;
+          
              
 
-              li.style.textDecoration = toDo.completed ? 'line-through' : 'none';
-                    li.appendChild(button)
-
-                    
+            //   li.style.textDecoration = toDo.completed ? 'line-through' : 'none';
+                    li.appendChild(button)    
+                    toDoList.appendChild(li);            
         
               
 
 
    
 
-            toDoList.appendChild(li); }
+          }
 
-                      if (  toDo.priority == 2 ) {
-                    const li = document.createElement('li');
-                   const button=document.createElement('button')
-                    button.textContent='Klar'
+                      if (  toDo.priority == 2 ) { //Om prioritet är 2 händer nedan. 
+                        const li = document.createElement('li');  //skapar element li
+                        const button=document.createElement('button') //skapar element button
+                        button.textContent='Klar' //text på knapp
                          
-                     button.addEventListener('click', () =>             
-                        {const toDos = toDoManager.getToDo();                                                  
-                         toDo.completed=true 
+                        button.addEventListener('click', () =>  //Eventlyssnare som lyssnar vid klick           
+                            {const toDos = toDoManager.getToDo(); //Hämtar ToDo från Localstorage                                                    
+                            toDo.completed=true //Gör om completed från false till true (från inte klar till klar) 
                          
-                         li.style.textDecoration = toDo.completed ? 'line-through' : 'none';
-                         localStorage.setItem("toDos", JSON.stringify(toDos))                      
-                        } )               
-                        li.innerHTML = `<strong>${toDo.task}</strong><br>           
-                        prioritet: ${toDo.priority}<br>
-            `;
+                            li.style.textDecoration = toDo.completed ? 'line-through' : 'none'; //Om det är klart så blir uppgiften överstruken
+                            localStorage.setItem("toDos", JSON.stringify(toDos))    //Sparar till localstorage att uppgiften är klar                       
+                            })   
+
+                           //Skriver ut uppgiften        
+                            li.innerHTML = `<strong>${toDo.task}</strong><br>           
+                            prioritet: ${toDo.priority}<br>  `;
+          
              
 
-              li.style.textDecoration = toDo.completed ? 'line-through' : 'none';
-                    li.appendChild(button)
-
-                    
+            //   li.style.textDecoration = toDo.completed ? 'line-through' : 'none';
+                            li.appendChild(button)
+                            toDoList2.appendChild(li); }                 
        
               
 
 
    
 
-            toDoList2.appendChild(li); }
+           
 
-                            if (  toDo.priority == 3 ) {
-                    const li = document.createElement('li');
-                   const button=document.createElement('button')
-                    button.textContent='Klar'
+                    if (  toDo.priority == 3 ) {//Om prioritet är 3 händer nedan. 
+                            const li = document.createElement('li'); //skapar element li
+                            const button=document.createElement('button')//skapar element button
+                            button.textContent='Klar'//text på knapp
                          
-                     button.addEventListener('click', () =>             
-                        {const toDos = toDoManager.getToDo();                                                  
-                         toDo.completed=true 
+                            button.addEventListener('click', () =>     //Eventlyssnare som lyssnar vid klick              
+                                {const toDos = toDoManager.getToDo();       //Hämtar ToDo från Localstorage                                               
+                                toDo.completed=true  //Gör om completed från false till true (från inte klar till klar) 
                          
-                         li.style.textDecoration = toDo.completed ? 'line-through' : 'none';
-                         localStorage.setItem("toDos", JSON.stringify(toDos))                      
-                        } )               
-                        li.innerHTML = `<strong>${toDo.task}</strong><br>           
-                        prioritet: ${toDo.priority}<br>
-            `;
+                                li.style.textDecoration = toDo.completed ? 'line-through' : 'none';//Om det är klart så blir uppgiften överstruken
+                                localStorage.setItem("toDos", JSON.stringify(toDos))      //Sparar till localstorage att uppgiften är klar                   
+                                })
+
+                            //Skriver ut uppgiften          
+                            li.innerHTML = `<strong>${toDo.task}</strong><br>           
+                            prioritet: ${toDo.priority}<br>  `;
+          
              
 
-              li.style.textDecoration = toDo.completed ? 'line-through' : 'none';
-                    li.appendChild(button)
-
-                    
+            //   li.style.textDecoration = toDo.completed ? 'line-through' : 'none';
+                                li.appendChild(button)
+                              toDoList3.appendChild(li); }                
    
-              
-
-
-   
-
-            toDoList3.appendChild(li); }
-
-            
-
-
-
-
-
-
 
                 })
             
