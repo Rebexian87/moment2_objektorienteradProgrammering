@@ -1,5 +1,6 @@
-import { ToDo } from './ToDo';
-export class LocalStorageUtil {
+import { ToDo } from './ToDo'; //Importerar ToDo klass
+export class LocalStorageUtil { //Exporterar metoder av localstorage/localstorageUtil
+
 
     //Metod som sparar till Localstorage
     static saveToLocalStorage(toDos: ToDo[]) {
@@ -8,14 +9,14 @@ export class LocalStorageUtil {
 
     //Metod som laddar data från Localstorage
     static loadFromLocalStorage(): ToDo[] {
-        const toDosStr = localStorage.getItem('toDos');
+        const toDosStr = localStorage.getItem('toDos'); //Hämtar att göra från localstorage
         if (toDosStr) {
  
             const rawData = JSON.parse(toDosStr);
             return rawData
 
         } else {
-            return []; // Om inga att göra finns lagrade, returnera en tom array
+            return []; // Om inga att göra finns lagrade, returneras en tom array
         }
     }
 }

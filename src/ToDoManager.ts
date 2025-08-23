@@ -1,35 +1,32 @@
-import { ToDo } from "./ToDo";
-import { LocalStorageUtil } from "./LocalStorageUtil";
+import { ToDo } from "./ToDo"; //Importerar ToDo
+import { LocalStorageUtil } from "./LocalStorageUtil"; //Importerar LocalstorageUtil
 
 
 
 export class ToDoManager {
-    private toDos: ToDo[] = [];  //Array som håller alla kontakter
+    //Array som innehåller alla att göra
+    private toDos: ToDo[] = [];  
 
 
-    //Kontruktor skapar objekt av klassen ContactManager och fyller arrayen med kontakter från LocalStorage
+    //Kontruktor skapar objekt av klassen ToDoManager och fyller arrayen med att göra- uppgifter från LocalStorage
     constructor() {
         this.toDos = LocalStorageUtil.loadFromLocalStorage();
     }
 
 
     
-    public addToDo(toDo: ToDo): void {
+    public addToDo(toDo: ToDo): void { //Lägger till att göra-uppgift med hjälp av push
         this.toDos.push(toDo);
         LocalStorageUtil.saveToLocalStorage(this.toDos);
 
     }
 
 
-    public getToDo(): ToDo[] { //retunerar att göra  till main.ts
+    public getToDo(): ToDo[] { //retunerar att göra till main.ts
         return this.toDos;
     }
 
-       public updateToDo(): void {
-        // this.toDos.push(toDo);
-        LocalStorageUtil.saveToLocalStorage(this.toDos);
-
-    }
+   
 
     
 
