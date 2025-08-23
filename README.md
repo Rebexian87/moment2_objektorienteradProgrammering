@@ -1,5 +1,6 @@
 
 # Moment 2, Skapa en att göra lista
+Av Rebecca Smith, resm2400
 Detta moment är byggt med Vite. 
 
 ## Vad kan man göra
