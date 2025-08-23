@@ -89,7 +89,7 @@ function renderToDos(): void {
           
              
 
-            //   li.style.textDecoration = toDo.completed ? 'line-through' : 'none';
+               li.style.textDecoration = toDo.completed ? 'line-through' : 'none';
                     li.appendChild(button)    
                     toDoList.appendChild(li);            
         
@@ -119,7 +119,7 @@ function renderToDos(): void {
           
              
 
-            //   li.style.textDecoration = toDo.completed ? 'line-through' : 'none';
+               li.style.textDecoration = toDo.completed ? 'line-through' : 'none';
                             li.appendChild(button)
                             toDoList2.appendChild(li); }                 
        
@@ -149,7 +149,7 @@ function renderToDos(): void {
           
              
 
-            //   li.style.textDecoration = toDo.completed ? 'line-through' : 'none';
+              li.style.textDecoration = toDo.completed ? 'line-through' : 'none';
                                 li.appendChild(button)
                               toDoList3.appendChild(li); }                
    
