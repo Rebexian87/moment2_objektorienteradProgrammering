@@ -7,7 +7,7 @@ export class ToDo implements IToDo {
     priority: number;
 
         //Konstruktor för klassen
-    constructor(task: string,  priority: number,) {
+    constructor(task: string, priority: number,) {
         this.task = task;
         this.completed = false;
         this.priority = priority;

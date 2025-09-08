@@ -3,6 +3,7 @@ import { ToDoManager } from "./ToDoManager";  //importerar ToDoManager klass
 
 const toDoManager = new ToDoManager(); //Skapar ett objekt av ToDoManager
 
+//Windows onload??
 
 document.addEventListener('DOMContentLoaded', () => { //Loadas vid start
     const form = document.getElementById('form')! as HTMLFormElement; //FormElement från HTML
@@ -80,18 +81,26 @@ function renderToDos(): void {
                         {const toDos = toDoManager.getToDo();  //Hämtar ToDo från Localstorage                                            
                          toDo.completed=true //Gör om completed från false till true (från inte klar till klar)
                          
-                         li.style.textDecoration = toDo.completed ? 'line-through' : 'none'; //Om det är klart så blir uppgiften överstruken
+                        li.style.textDecoration = toDo.completed ? 'line-through' : 'none'; //Om det är klart så blir uppgiften överstruken
+                        button.textContent= toDo.completed ? "Är klar" : "Klar?";  //text på knapp när uppgift är klar vs ej klar
                          localStorage.setItem("toDos", JSON.stringify(toDos))   //Sparar till localstorage att uppgiften är klar            
                         } )         
                         //Skriver ut uppgiften      
                         li.innerHTML = `<strong>${toDo.task}</strong><br>           
                         prioritet: ${toDo.priority}<br>  `;
-          
+                        
+                    
+                        li.style.textDecoration = toDo.completed ? 'line-through' : 'none';
+                        button.textContent= toDo.completed ? "Är klar" : "Klar?";  //text på knapp när uppgift är klar vs ej klar
+                    
              
 
-               li.style.textDecoration = toDo.completed ? 'line-through' : 'none';
+               //li.style.textDecoration = toDo.completed ? 'line-through' : 'none';
                     li.appendChild(button)    
-                    toDoList.appendChild(li);            
+                    toDoList.appendChild(li);  
+                    
+                    
+                 
         
               
 
@@ -103,13 +112,14 @@ function renderToDos(): void {
                       if (  toDo.priority == 2 ) { //Om prioritet är 2 händer nedan. 
                         const li = document.createElement('li');  //skapar element li
                         const button=document.createElement('button') //skapar element button
-                        button.textContent='Klar' //text på knapp
+                        //button.textContent='Klar' //text på knapp
                          
                         button.addEventListener('click', () =>  //Eventlyssnare som lyssnar vid klick           
                             {const toDos = toDoManager.getToDo(); //Hämtar ToDo från Localstorage                                                    
                             toDo.completed=true //Gör om completed från false till true (från inte klar till klar) 
                          
                             li.style.textDecoration = toDo.completed ? 'line-through' : 'none'; //Om det är klart så blir uppgiften överstruken
+                            button.textContent= toDo.completed ? "Är klar" : "Klar?";  //text på knapp när uppgift är klar vs ej klar
                             localStorage.setItem("toDos", JSON.stringify(toDos))    //Sparar till localstorage att uppgiften är klar                       
                             })   
 
@@ -119,7 +129,8 @@ function renderToDos(): void {
           
              
 
-               li.style.textDecoration = toDo.completed ? 'line-through' : 'none';
+                        li.style.textDecoration = toDo.completed ? 'line-through' : 'none';
+                        button.textContent= toDo.completed ? "Är klar" : "Klar?";  //text på knapp när uppgift är klar vs ej klar
                             li.appendChild(button)
                             toDoList2.appendChild(li); }                 
        
@@ -139,7 +150,8 @@ function renderToDos(): void {
                                 {const toDos = toDoManager.getToDo();       //Hämtar ToDo från Localstorage                                               
                                 toDo.completed=true  //Gör om completed från false till true (från inte klar till klar) 
                          
-                                li.style.textDecoration = toDo.completed ? 'line-through' : 'none';//Om det är klart så blir uppgiften överstruken
+                                li.style.textDecoration = toDo.completed ? 'line-through' : 'none'; //Om det är klart så blir uppgiften överstruken
+                                button.textContent= toDo.completed ? "Är klar" : "Klar?"; //text på knapp när uppgift är klar vs ej klar
                                 localStorage.setItem("toDos", JSON.stringify(toDos))      //Sparar till localstorage att uppgiften är klar                   
                                 })
 
@@ -149,7 +161,8 @@ function renderToDos(): void {
           
              
 
-              li.style.textDecoration = toDo.completed ? 'line-through' : 'none';
+              li.style.textDecoration = toDo.completed ? 'line-through' : 'none'; //Om det uppgiften inte är klar så är den inte överstruken 
+            button.textContent= toDo.completed ? "Är klar" : "Klar?"; //text på knapp när uppgift är klar vs ej klar
                                 li.appendChild(button)
                               toDoList3.appendChild(li); }                
    
