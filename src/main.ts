@@ -3,7 +3,7 @@ import { ToDoManager } from "./ToDoManager";  //importerar ToDoManager klass
 
 const toDoManager = new ToDoManager(); //Skapar ett objekt av ToDoManager
 
-//Windows onload??
+
 
 document.addEventListener('DOMContentLoaded', () => { //Loadas vid start
     const form = document.getElementById('form')! as HTMLFormElement; //FormElement från HTML
@@ -49,7 +49,7 @@ function addToDo(): boolean {
 
 
 function renderToDos(): void {
-    console.log(toDoManager); // Visar ToDoManager-instansen
+   
 
     const toDos = toDoManager.getToDo(); //Hämtar arrayen med att göra från ToDoManager
     
